@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 
-function Hello() {
+function Hello(props) {
 	const counting = () => {
 		console.log("Hello React");
 	}
 
 	return (
 		<div className="hello"> 
-			<p>This is Hello Component</p>
+			<p>{props.name}</p>
 			<button onClick={counting}>Hello</button>
 
 		</div>

@@ -3,9 +3,15 @@ import Hello from './Hello';
 
 function App() {
   return (
-  	<div>
+  	<div >
 	    <h1> This is App Component </h1>
-	    <Hello></Hello>
+	    <div className="appExtra">
+		    <Hello/>
+		    <Hello/>
+		    <Hello/>
+		    <Hello/>
+	    </div>
+
   	</div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 function Hello() {
 	const counting = () => {
@@ -6,7 +7,7 @@ function Hello() {
 	}
 
 	return (
-		<div> 
+		<div className="hello"> 
 			<p>This is Hello Component</p>
 			<button onClick={counting}>Hello</button>
 

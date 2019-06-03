@@ -31,3 +31,21 @@
     transform: rotate(360deg);
   }
 }
+
+.hello {
+    border: 1px solid #fff;
+    width: 200px;
+    height: 200px;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.appExtra {
+  display: flex;
+  padding: 50px 100px ;
+  justify-content: space-around;
+  align-items: center;
+}

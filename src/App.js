@@ -1,32 +1,69 @@
 import React, {Component} from 'react';
- 
-class App extends Component  {
-	render() {
+import './App.css';
+class App extends Component {
+	render(){
 		return (
-			<div> 
-				<h1>Hi My name is {this.props.name}</h1>
-			</div>
+			<TodoList />
 			)
 	}
 }
-class Hello extends Component {
+class TodoList extends Component {
 	constructor(){
 		super();
 		this.state = {
-			name : null
+			items : [
+				{name : "Bone Kyaw", status: 1},
+				{name : "Moe Moe", status: 0},
+				{name : "Phone Nyo", status: 0},
+				{name : "Moe Ma Ka", status: 0},
+			]
 		}
-		this.handleChange = this.handleChange.bind(this);
+		this.toggle = this.toggle.bind(this);
+
 	}
-	handleChange(e){
-		this.setState({name: e.target.value})
+	toggle(index){
+		var items = this.state.items;
+		items[index].status = !items[index].status;
+		this.setState({items})
 	}
-	render() {
+	render(){
+		var self = this;
 		return (
-			<div>
-				<App name={this.state.name}/>
-				<input type="text" onKeyDown={this.handleChange}/>
-			</div>
+			<ul>
+				{this.state.items.map(
+					function(item,index){
+						return (
+							<TodoItem 
+								name={item.name} 
+								status={item.status} 
+								key={index} 
+								toggle={self.toggle} 
+								id={index}
+							 />
+								
+						)
+					})
+				}
+			</ul>
 			)
 	}
 }
-export default Hello;
+class TodoItem extends Component {
+	constructor(){
+		super();
+		this.handleChange = this.handleChange.bind(this);
+	}
+	handleChange(){
+		this.props.toggle(this.props.id)
+	}
+	render(){
+		return (
+			<li>
+				<input type="checkbox" checked={this.props.status} onChange={this.handleChange}/>
+				 {this.props.status ? (<s>{this.props.name}</s>) : (this.props.name) }
+				 <a href="#">&times;</a> 
+			 </li>
+			)
+	}
+}
+export default App;

@@ -12,11 +12,16 @@ class App extends Component  {
 	render() {
 		return (
 			<div> 
-				<h1>Hello React</h1>
+				<h1>Hello React {this.props.name}</h1>
 				<p>Name : {this.state.name}</p>
 				<p>Age: {this.state.age}</p>
 			</div>
 			)
 	}
 }
-export default App;
+class Hello extends Component {
+	render() {
+		return <App name="Testing"/>
+	}
+}
+export default Hello;

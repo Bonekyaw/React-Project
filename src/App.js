@@ -3,7 +3,7 @@ import './App.css';
 class App extends Component {
 	render(){
 		return (
-			<TodoList />
+				<TodoList />
 			)
 	}
 }
@@ -20,6 +20,7 @@ class TodoList extends Component {
 		}
 		this.toggle = this.toggle.bind(this);
 		this.remove = this.remove.bind(this);
+		this.addList = this.addList.bind(this);
 
 	}
 	toggle(index){
@@ -32,26 +33,37 @@ class TodoList extends Component {
 		delete items[index];
 		this.setState({items})
 	}
+	addList(name){
+		var items = this.state.items;
+		items.push({name: name});
+		this.setState({items});
+
+	}
 	render(){
 		var self = this;
 		return (
-			<ul>
-				{this.state.items.map(
-					function(item,index){
-						return (
-							<TodoItem 
-								name={item.name} 
-								status={item.status} 
-								key={index} 
-								toggle={self.toggle}
-								remove={self.remove} 
-								id={index}
-							 />
-								
-						)
-					})
-				}
-			</ul>
+			<div>
+				<ul>
+					{this.state.items.map(
+						function(item,index){
+							return (
+								<TodoItem 
+									name={item.name} 
+									status={item.status} 
+									key={index} 
+									toggle={self.toggle}
+									remove={self.remove} 
+									id={index}
+								 />
+
+									
+							)
+						})
+					}
+				</ul>
+				<AddTodo addNew={this.addList}/>
+			</div>
+
 			)
 	}
 }
@@ -75,6 +87,33 @@ class TodoItem extends Component {
 				 <a href="#" onClick={this.handleDelete}>&times;</a> 
 			 </li>
 			)
+	}
+}
+class AddTodo extends Component {
+	constructor(){
+		super();
+		this.state = {
+			name: " "
+		}
+		this.addTodo = this.addTodo.bind(this);
+		this.getText = this.getText.bind(this);
+	}
+	addTodo(e){
+		this.props.addNew(e.target.previousSibling.value);
+		this.setState({name:''})
+	}
+	getText(e){
+		var subject = e.target.value;
+		this.setState({name: subject});
+
+		}
+	render(){
+		return (
+			<div>
+				<input type="text" value={this.state.name} onChange={this.getText}/>
+				<button onClick={this.addTodo}>+</button>
+			</div>
+		)
 	}
 }
 export default App;

@@ -19,11 +19,17 @@ class TodoList extends Component {
 			]
 		}
 		this.toggle = this.toggle.bind(this);
+		this.remove = this.remove.bind(this);
 
 	}
 	toggle(index){
 		var items = this.state.items;
 		items[index].status = !items[index].status;
+		this.setState({items})
+	}
+	remove(index){
+		var items = this.state.items;
+		delete items[index];
 		this.setState({items})
 	}
 	render(){
@@ -37,7 +43,8 @@ class TodoList extends Component {
 								name={item.name} 
 								status={item.status} 
 								key={index} 
-								toggle={self.toggle} 
+								toggle={self.toggle}
+								remove={self.remove} 
 								id={index}
 							 />
 								
@@ -52,16 +59,20 @@ class TodoItem extends Component {
 	constructor(){
 		super();
 		this.handleChange = this.handleChange.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 	handleChange(){
 		this.props.toggle(this.props.id)
+	}
+	handleDelete(){
+		this.props.remove(this.props.id);
 	}
 	render(){
 		return (
 			<li>
 				<input type="checkbox" checked={this.props.status} onChange={this.handleChange}/>
 				 {this.props.status ? (<s>{this.props.name}</s>) : (this.props.name) }
-				 <a href="#">&times;</a> 
+				 <a href="#" onClick={this.handleDelete}>&times;</a> 
 			 </li>
 			)
 	}
